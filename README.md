@@ -69,6 +69,7 @@ Este archivo de perfil, llamado Microsoft.PowerShell_profile.ps1, contiene una c
     ```powershell
        [Folder: My-config-Powershell] & Root> PS>notepad $PROFILE
 
+---
 
 <p align="center">
   <img src="Demo-PowerShell.gif" alt="Demo-PowerShell">
