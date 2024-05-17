@@ -1,9 +1,9 @@
 # Configuración de PSReadLine.
 
-# Sets the prediction source to use history for PowerShell command prediction.
+# Establece la fuente de predicción para usar el historial en la predicción de comandos de PowerShell.
 Set-PSReadLineOption -PredictionSource History
 
-# Sets the prediction view style to ListView for PowerShell command prediction.
+# Establece el estilo de vista de predicción a ListView para la predicción de comandos de PowerShell.
 Set-PSReadLineOption -PredictionViewStyle ListView
 
 
@@ -11,59 +11,49 @@ Set-PSReadLineOption -PredictionViewStyle ListView
 ########################################################################################
 
 
-# Defines the prompt function to customize the appearance of the PowerShell prompt.
+
+# Función para definir el prompt personalizado de PowerShell.
 function prompt {
-    # Retrieves the current directory path.
+    # Obtiene la ruta del directorio actual.
     $path = (Get-Location).Path
 
-    # Extracts the leaf portion of the directory path (i.e., the folder name).
+    # Extrae el nombre de la carpeta del final de la ruta del directorio.
     $folderName = Split-Path -Path $path -Leaf
 
-    # Specifies the label to be displayed before the folder name.
+    # Etiqueta para el nombre de la carpeta en el prompt.
     $folderLabel = "Folder:"
 
-    # Defines the color for the folder name text.
-    $folderNameColor = "Green"
-
-    # Specifies the separator character.
+    # Carácter separador entre la carpeta y el tipo de usuario.
     $separator = "&"
 
-    # Retrieves information about the current user's role.
+    # Obtiene información sobre el rol del usuario actual.
     $userPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 
-    # Checks if the current user is in the Administrator role.
+    # Verifica si el usuario actual está en el rol de Administrador.
     if ($userPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-        # Sets the user type to "Root" if the user is an Administrator.
+        # Define el tipo de usuario como "Root" si el usuario es un Administrador.
         $userType = "Root"
-
-        # Defines the color for the "Root" text.
+        # Color para el texto del tipo de usuario.
         $userTypeColor = "Yellow"
-
-        # Defines the color for the separator when the user is an Administrator.
-        $separatorColor = "Red"
     } else {
-        # Sets the user type to "USER" if the user is not an Administrator.
+        # Define el tipo de usuario como "USER" si el usuario no es un Administrador.
         $userType = "USER"
-
-        # Defines the color for the "USER" text.
+        # Color para el texto del tipo de usuario.
         $userTypeColor = "Green"
-
-        # Defines the color for the separator when the user is not an Administrator.
-        $separatorColor = "Red"
     }
 
-    # Displays the folder label with magenta color.
-    Write-Host -NoNewline "[$($folderLabel) " -ForegroundColor Magenta
+    # Imprime la etiqueta de la carpeta con color negro.
+    Write-Host -NoNewline "[$($folderLabel) " -ForegroundColor Black
 
-    # Displays the folder name with green color.
-    Write-Host -NoNewline "$($folderName)] " -ForegroundColor Green
+    # Imprime el nombre de la carpeta con color amarillo oscuro.
+    Write-Host -NoNewline "$($folderName)] " -ForegroundColor DarkYellow
 
-    # Displays the separator character with the specified color.
-    Write-Host -NoNewline "$($separator)" -ForegroundColor $separatorColor
+    # Imprime el separador con color rojo.
+    Write-Host -NoNewline "$($separator)" -ForegroundColor Red
 
-    # Adds a space after the separator.
+    # Imprime un espacio en blanco.
     Write-Host -NoNewline " "
 
-    # Displays the user type (Root or USER) with the specified color.
+    # Imprime el tipo de usuario con el color correspondiente.
     Write-Host -NoNewline "$($userType)> " -ForegroundColor $userTypeColor
 }
