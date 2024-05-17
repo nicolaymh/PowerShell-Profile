@@ -14,6 +14,7 @@ Set-PSReadLineOption -PredictionViewStyle ListView
 
 # Función para definir el prompt personalizado de PowerShell.
 function prompt {
+
     # Obtiene la ruta del directorio actual.
     $path = (Get-Location).Path
 
@@ -31,13 +32,18 @@ function prompt {
 
     # Verifica si el usuario actual está en el rol de Administrador.
     if ($userPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+
         # Define el tipo de usuario como "Root" si el usuario es un Administrador.
         $userType = "Root"
+
         # Color para el texto del tipo de usuario.
         $userTypeColor = "Yellow"
+
     } else {
+
         # Define el tipo de usuario como "USER" si el usuario no es un Administrador.
         $userType = "USER"
+
         # Color para el texto del tipo de usuario.
         $userTypeColor = "Green"
     }
